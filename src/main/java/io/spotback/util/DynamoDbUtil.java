@@ -27,8 +27,6 @@ public class DynamoDbUtil {
   }
 
   private void init(JsonObject config) {
-//    AWSCredentials credentials = new DefaultAWSCredentialsProviderChain().getCredentials();
-//    client = new AmazonDynamoDBClient(credentials);
     client = AmazonDynamoDBClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain())
       .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(config.getJsonObject(Constants.AWS_CONFIGURATION_KEY).getString(Constants.DYNAMO), config.getJsonObject(Constants.AWS_CONFIGURATION_KEY).getString(Constants.TABLE_REGION)))
       .build();

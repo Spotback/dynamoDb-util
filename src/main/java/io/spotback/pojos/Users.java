@@ -4,6 +4,8 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import io.vertx.core.json.JsonObject;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,8 @@ public class Users {
   private String lastName;
   private String password;
   private String phone;
-  private String profilepic;
+  private String profilePic;
+  private String token;
   List<String> referrals;
   private boolean verified;
 
@@ -88,11 +91,19 @@ public class Users {
   }
 
   @DynamoDBAttribute(attributeName="profilePic")
-  public String getProfilepic() {
-    return profilepic;
+  public String getProfilePic() {
+    return profilePic;
   }
-  public void setProfilepic(String profilepic) {
-    this.profilepic = profilepic;
+  public void setProfilePic(String profilePic) {
+    this.profilePic = profilePic;
+  }
+
+  @DynamoDBAttribute(attributeName="token")
+  public String getToken() {
+    return token;
+  }
+  public void setToken(String token) {
+    this.token = token;
   }
 
   @DynamoDBAttribute(attributeName="verified")
@@ -103,41 +114,47 @@ public class Users {
     this.verified = verified;
   }
 
-  @DynamoDBDocument
-  public static class Car {
-    private String color;
-    private String make;
-    private String model;
-    private String year;
+  public void updateFields(String key, Object value) {
+    switch (key) {
+      case "email" : {
+        setEmail(StringUtils.lowerCase(value.toString()));
+        return;
+      }
+      case "password" : {
+        setPassword(value.toString());
+        return;
+      }
+      case "firstName" : {
+        setFirstName(value.toString());
+        return;
+      }
+      case "lastName" : {
+        setLastName(value.toString());
+        return;
+      }
+      case "phone" : {
+        setPhone(value.toString());
+        return;
+      }
+      case "profilepic" : {
+        setProfilePic(value.toString());
+        return;
+      }
+      case "freeSpots" : {
+        setFreeSpots(Integer.valueOf(value.toString()));
+        return;
+      }
+      case "car" : {
+        setCar(new JsonObject(value.toString()).mapTo(Car.class));
+        return;
+      }
+    }
+  }
 
-    @DynamoDBAttribute(attributeName = "color")
-    public String getColor() {
-      return color;
-    }
-    public void setColor(String color) {
-      this.color = color;
-    }
-    @DynamoDBAttribute(attributeName = "make")
-    public String getMake() {
-      return make;
-    }
-    public void setMake(String make) {
-      this.make = make;
-    }
-    @DynamoDBAttribute(attributeName = "model")
-    public String getModel() {
-      return model;
-    }
-    public void setModel(String model) {
-      this.model = model;
-    }
-    @DynamoDBAttribute(attributeName = "year")
-    public String getYear() {
-      return year;
-    }
-    public void setYear(String year) {
-      this.year = year;
-    }
+  @Override
+  public String toString() {
+    return CarObject.toString() + ", " + email + ", "  + firstName + ", " + freeSpots + ", " + lastName +
+    password + ", " + phone + ", " + profilePic + ", " + token + ", " + referrals + ", " + verified;
   }
 }
 
