@@ -6,8 +6,4 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 public class Claim {
     private String userEmail;
     private String message;
-
-//     enum Subjects {
-//        ""
-//    }
 }
