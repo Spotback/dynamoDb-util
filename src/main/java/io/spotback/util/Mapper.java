@@ -4,13 +4,13 @@ import io.vertx.core.json.JsonObject;
 
 public abstract class Mapper {
 
-  abstract void create(JsonObject object);
+  public abstract void create(JsonObject object);
 
-  abstract Object read(JsonObject object) ;
+  public abstract Object read(JsonObject object) ;
 
-  abstract void update(JsonObject object);
+  public abstract void update(JsonObject object);
 
-  abstract void delete(JsonObject object);
+  public abstract void delete(JsonObject object);
 }
 
 
