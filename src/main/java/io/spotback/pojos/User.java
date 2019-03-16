@@ -10,7 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-@DynamoDBTable(tableName="User")
+@DynamoDBTable(tableName="Users")
 public class User {
   Car CarObject;
   private String email;
