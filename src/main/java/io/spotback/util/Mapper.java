@@ -2,7 +2,7 @@ package io.spotback.util;
 
 import io.vertx.core.json.JsonObject;
 
-abstract class Mapper {
+public abstract class Mapper {
 
   abstract void create(JsonObject object);
 
