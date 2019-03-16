@@ -4,19 +4,19 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
-@DynamoDBTable(tableName="Referrals")
-public class Referrals {
+@DynamoDBTable(tableName="Referral")
+public class Referral {
   private String referralCode;
   private String email;
 
-  public Referrals() {}
+  public Referral() {}
 
-  public Referrals(String referralCode, String email) {
+  public Referral(String referralCode, String email) {
     this.referralCode = referralCode;
     this.email = email;
   }
 
-  public Referrals(String referralCode) {
+  public Referral(String referralCode) {
     this.referralCode = referralCode;
   }
 

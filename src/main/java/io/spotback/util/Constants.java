@@ -13,8 +13,8 @@ public class Constants {
   public static final String AWS_MATCHING_GET = "matching.uri.get";
   public static final String AWS_MATCHING_POST = "matching.uri.post";
   public static final String AWS_MATCHING_PORT = "matching.port";
-  public static final String USER_TABLE = "Users";
-  public static final String REFERRAL_TABLE = "Referrals";
+  public static final String USER_TABLE = "User";
+  public static final String REFERRAL_TABLE = "Referral";
   /**
    * Email configuration keys
    */
