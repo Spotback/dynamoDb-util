@@ -2,20 +2,25 @@ package io.spotback.util;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.handlers.AsyncHandler;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBAsync;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBAsyncClientBuilder;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDB;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTableMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.UpdateItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
+import com.amazonaws.services.dynamodbv2.model.PutItemResult;
 import io.spotback.pojos.User;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 public class UserMapper extends Mapper {
 
@@ -26,13 +31,14 @@ public class UserMapper extends Mapper {
         client = AmazonDynamoDBAsyncClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain())
                 .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(config.getString(Constants.DYNAMO), config.getString(Constants.TABLE_REGION)))
                 .build();
-        mapper = new DynamoDBMapper(client).newTableMapper(User.class);
+        mapper = new DynamoDBMapper(client, new DynamoDBMapperConfig(DynamoDBMapperConfig.SaveBehavior.UPDATE_SKIP_NULL_ATTRIBUTES)).newTableMapper(User.class);
     }
 
     public void create(JsonObject user) {
-        User item = user.mapTo(User.class);
-        item.setVerified(false);
-        mapper.saveIfNotExists(item);
+        Table table = new Table(client, "Users");
+        user.put("verified", false);
+        Item item = Item.fromJSON(user.toString());
+        table.putItem(item);
     }
 
     public User read(JsonObject user) {
