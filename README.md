@@ -7,12 +7,12 @@ The config should look something like this:
 {
     "aws_access_key_id" : "someAccessKey",
     "aws_secret_access_key" : "someSecretKey",
-    "dynamo.endpoint" : "https://dynamodb.us-east-2.amazonaws.com",
-    "region" : "us-east-2",
-    "matching.service" : "www.spotback.io",
-    "matching.uri.get" : "/Prod/spots?coordinates=${latitude},%${longitude}&range=${range}",
-    "matching.uri.post" : "/Prod/spots",
-    "matching.port" : 443
+    "dynamo.endpoint" : "xyz",
+    "region" : "xyz",
+    "matching.service" : "www.xyz.com",
+    "matching.uri.get" : "xyz",
+    "matching.uri.post" : "xyz",
+    "matching.port" : xxx
   }
 ```
 To read or write from the database you can call one of these methods:
