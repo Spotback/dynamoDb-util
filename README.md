@@ -5,15 +5,9 @@ The config should look something like this:
 
 ```json
 {
-    "aws_access_key_id" : "someAccessKey",
-    "aws_secret_access_key" : "someSecretKey",
     "dynamo.endpoint" : "xyz",
-    "region" : "xyz",
-    "matching.service" : "www.xyz.com",
-    "matching.uri.get" : "xyz",
-    "matching.uri.post" : "xyz",
-    "matching.port" : xxx
-  }
+    "region" : "xyz"
+}
 ```
 To read or write from the database you can call one of these methods:
 ```java
