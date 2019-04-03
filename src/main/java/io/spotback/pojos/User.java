@@ -136,12 +136,12 @@ public class User {
         setPhone(value.toString());
         return;
       }
-      case "profilepic" : {
+      case "profilePic" : {
         setProfilePic(value.toString());
         return;
       }
-      case "freeSpots" : {
-        setFreeSpots(Integer.valueOf(value.toString()));
+      case "token" : {
+        setToken(value.toString());
         return;
       }
       case "car" : {
