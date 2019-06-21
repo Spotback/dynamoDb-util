@@ -9,6 +9,7 @@ public class Car {
     private String make;
     private String model;
     private String year;
+    private String carType;
 
     @DynamoDBAttribute(attributeName = "color")
     public String getColor() {
@@ -37,6 +38,14 @@ public class Car {
     }
     public void setYear(String year) {
         this.year = year;
+    }
+
+    @DynamoDBAttribute(attributeName = "carType")
+    public String getCarType() {
+        return carType;
+    }
+    public void setCarType(String carType) {
+        this.carType = carType;
     }
 
     @Override

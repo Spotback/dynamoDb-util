@@ -19,6 +19,12 @@ import io.spotback.pojos.User;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.KeySpec;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
@@ -35,10 +41,8 @@ public class UserMapper extends Mapper {
     }
 
     public void create(JsonObject user) {
-        Table table = new Table(client, "Users");
         user.put("verified", false);
-        Item item = Item.fromJSON(user.toString());
-        table.putItem(item);
+        mapper.saveIfNotExists(user.mapTo(User.class));
     }
 
     public User read(JsonObject user) {

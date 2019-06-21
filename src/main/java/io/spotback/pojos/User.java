@@ -1,9 +1,9 @@
 package io.spotback.pojos;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import org.apache.commons.lang.StringUtils;
 
@@ -20,9 +20,14 @@ public class User {
   private String password;
   private String phone;
   private String profilePic;
-  private String token;
+  private String stripeToken;
+  private String pushToken;
   List<String> referrals;
   private boolean verified;
+
+  private double balance;
+  private long created_time;
+
 
   @DynamoDBAttribute(attributeName="car")
   public Car getCar() {
@@ -98,12 +103,31 @@ public class User {
     this.profilePic = profilePic;
   }
 
-  @DynamoDBAttribute(attributeName="token")
-  public String getToken() {
-    return token;
+  @DynamoDBAttribute(attributeName="stripeToken")
+  public String getStripeToken() {
+    return stripeToken;
   }
-  public void setToken(String token) {
-    this.token = token;
+  public void setStripeToken(String token) {
+    this.stripeToken = token;
+  }
+
+  @DynamoDBAttribute(attributeName="stripeToken")
+  public String getPushToken() {
+    return pushToken;
+  }
+  public void setPushToken(String token) {
+    this.pushToken = token;
+  }
+
+  @DynamoDBAttribute(attributeName="balance")
+  public double getBalance() { return balance; }
+  public void setBalance(double balance) {
+    this.balance = balance;
+  }
+  @DynamoDBAttribute(attributeName="created_time")
+  public long getCreated_time() { return created_time; }
+  public void setCreated_time(long created_time) {
+    this.created_time = created_time;
   }
 
   @DynamoDBAttribute(attributeName="verified")
@@ -140,8 +164,12 @@ public class User {
         setProfilePic(value.toString());
         return;
       }
-      case "token" : {
-        setToken(value.toString());
+      case "pushToken" : {
+        setPushToken(value.toString());
+        return;
+      }
+      case "stripeToken" : {
+        setStripeToken(value.toString());
         return;
       }
       case "car" : {
@@ -153,8 +181,7 @@ public class User {
 
   @Override
   public String toString() {
-    return CarObject.toString() + ", " + email + ", "  + firstName + ", " + freeSpots + ", " + lastName +
-    password + ", " + phone + ", " + profilePic + ", " + token + ", " + referrals + ", " + verified;
+    return JsonObject.mapFrom(this).encodePrettily();
   }
 }
 
