@@ -111,7 +111,7 @@ public class User {
     this.stripeToken = token;
   }
 
-  @DynamoDBAttribute(attributeName="stripeToken")
+  @DynamoDBAttribute(attributeName="pushToken")
   public String getPushToken() {
     return pushToken;
   }
