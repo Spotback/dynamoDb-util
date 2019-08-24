@@ -2,6 +2,7 @@ package io.spotback.pojos;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
+import io.vertx.core.json.JsonObject;
 
 @DynamoDBDocument
 public class Car {
@@ -50,6 +51,6 @@ public class Car {
 
     @Override
     public String toString() {
-        return color + ", " + make + ", " + model + ", " + year;
+        return JsonObject.mapFrom(this).encodePrettily();
     }
 }
