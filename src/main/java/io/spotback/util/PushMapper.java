@@ -28,8 +28,8 @@ public class PushMapper extends Mapper {
         mapper.saveIfNotExists(object.mapTo(PushMessage.class));
     }
 
-    @Override
-    public Object read(JsonObject object) {
+
+    public PushMessage read(JsonObject object) {
         return mapper.load(object.getString("messageId"));
     }
 
