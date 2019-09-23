@@ -8,6 +8,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTableMapper;
 import io.spotback.pojos.PushMessage;
+import io.spotback.pojos.User;
 import io.vertx.core.json.JsonObject;
 
 public class PushMapper extends Mapper {
