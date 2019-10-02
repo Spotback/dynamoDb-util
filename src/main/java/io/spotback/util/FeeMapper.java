@@ -39,7 +39,7 @@ public class FeeMapper extends Mapper {
     }
 
     @Override
-    public Object read(JsonObject object) {
+    public Fee read(JsonObject object) {
         return mapper.load(object.getString("feeName"));
     }
 
